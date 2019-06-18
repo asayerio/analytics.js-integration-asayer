@@ -23,7 +23,7 @@ describe('asayer', function () {
 
   describe('before loading', function () {
     it('should call #load', function () {
-      asayer = new Asayer({ 'sid': '1234' })
+      asayer = new Asayer({ 'siteId': '1234' })
       analytics.use(Asayer)
       analytics.add(asayer)
       analytics.stub(asayer, 'load')
@@ -31,8 +31,8 @@ describe('asayer', function () {
       analytics.called(asayer.load)
     })
 
-    it('should not call #load for wrong sid', function () {
-      asayer = new Asayer({ 'sid': 'wrong' })
+    it('should not call #load for wrong siteId', function () {
+      asayer = new Asayer({ 'siteId': 'wrong' })
       analytics.use(Asayer)
       analytics.add(asayer)
       analytics.stub(asayer, 'load')
@@ -43,7 +43,7 @@ describe('asayer', function () {
 
   describe('after loading', function () {
     beforeEach(function (done) {
-      asayer = new Asayer({ 'sid': '1234' })
+      asayer = new Asayer({ 'siteId': '1234' })
       analytics.use(Asayer)
       analytics.add(asayer)
       analytics.once('ready', done)
