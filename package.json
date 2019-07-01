@@ -1,7 +1,7 @@
 {
   "name": "@asayerio/analytics.js-integration-asayer",
   "description": "The Asayer analytics.js integration.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "keywords": [
     "analytics.js",
     "analytics.js-integration",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/asayerio/analytics.js-integrations-asayer.git"
+    "url": "git+https://github.com/asayerio/analytics.js-integration-asayer.git"
   },
   "author": "Alex Tsokurov <alex@asayer.io>",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/asayerio/analytics.js-integrations-asayer/issues"
+    "url": "https://github.com/asayerio/analytics.js-integration-asayer/issues"
   },
-  "homepage": "https://github.com/asayerio/analytics.js-integrations-asayer#readme",
+  "homepage": "https://github.com/asayerio/analytics.js-integration-asayer#readme",
   "dependencies": {
     "@segment/analytics.js-integration": "^3.2.0",
     "extend": "^3.0.2"

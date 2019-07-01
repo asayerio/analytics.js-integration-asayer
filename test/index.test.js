@@ -59,18 +59,18 @@ describe('asayer', function () {
         analytics.identify()
         analytics.called(window.asayer.vars)
         var vars = window.asayer.vars.args[0][0]
-        analytics.assert(vars && vars.segment_anonymous_id)
+        analytics.assert(vars && vars.anonymousId)
       })
 
       it('should send userId', function () {
         analytics.identify('1')
-        analytics.called(window.asayer.vars, 'segment_user_id', '1')
+        analytics.called(window.asayer.vars, 'userId', '1')
       })
 
       it('should send only safe traits', function () {
-        analytics.identify('1', { 'email': 'hello@asayer.io', title: { hide: 'me' }, phone: true, unknown: 'custom' })
+        analytics.identify('1', { 'email': 'hello@asayer.io', title: { hide: 'me' }, phone: true, custom: 'custom' })
         var vars = window.asayer.vars.args[1][0]
-        analytics.assert(vars && vars.segment_email === 'hello@asayer.io' && !vars.segment_title && !vars.segment_phone && !vars.unknown)
+        analytics.assert(vars && vars.email === 'hello@asayer.io' && !vars.title && vars.phone && vars.custom === 'custom')
       })
     })
 
