@@ -1,7 +1,7 @@
 {
   "name": "@asayerio/analytics.js-integration-asayer",
   "description": "The Asayer analytics.js integration.",
-  "version": "1.1.0",
+  "version": "5.0.0",
   "keywords": [
     "analytics.js",
     "analytics.js-integration",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/asayerio/analytics.js-integration-asayer.git"
   },
-  "author": "Alex Tsokurov <alex@asayer.io>",
+  "author": "Alex Tsokurov",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/asayerio/analytics.js-integration-asayer/issues"

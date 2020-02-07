@@ -23,7 +23,7 @@ describe('asayer', function () {
 
   describe('before loading', function () {
     it('should call #load', function () {
-      asayer = new Asayer({ 'siteId': '1234' })
+      asayer = new Asayer({ 'projectId': '1234' })
       analytics.use(Asayer)
       analytics.add(asayer)
       analytics.stub(asayer, 'load')
@@ -31,8 +31,8 @@ describe('asayer', function () {
       analytics.called(asayer.load)
     })
 
-    it('should not call #load for wrong siteId', function () {
-      asayer = new Asayer({ 'siteId': 'wrong' })
+    it('should not call #load for wrong projectId', function () {
+      asayer = new Asayer({ 'projectId': 'wrong' })
       analytics.use(Asayer)
       analytics.add(asayer)
       analytics.stub(asayer, 'load')
@@ -43,7 +43,7 @@ describe('asayer', function () {
 
   describe('after loading', function () {
     beforeEach(function (done) {
-      asayer = new Asayer({ 'siteId': '1234' })
+      asayer = new Asayer({ 'projectId': '1234' })
       analytics.use(Asayer)
       analytics.add(asayer)
       analytics.once('ready', done)
@@ -51,26 +51,28 @@ describe('asayer', function () {
     })
 
     describe('#identify', function () {
-      beforeEach(function () {
-        analytics.stub(window.asayer, 'vars')
-      })
-
       it('should send anonymousId', function () {
+        analytics.stub(window.asayer, 'userAnonymousID')
         analytics.identify()
-        analytics.called(window.asayer.vars)
-        var vars = window.asayer.vars.args[0][0]
-        analytics.assert(vars && vars.anonymousId)
+        analytics.called(window.asayer.userAnonymousID)
+        var id = window.asayer.userAnonymousID.args[0][0]
+        analytics.assert(id && typeof id === 'string')
       })
 
       it('should send userId', function () {
+        analytics.stub(window.asayer, 'userID')
         analytics.identify('1')
-        analytics.called(window.asayer.vars, 'userId', '1')
+        analytics.called(window.asayer.userID, '1')
       })
 
       it('should send only safe traits', function () {
-        analytics.identify('1', { 'email': 'hello@asayer.io', title: { hide: 'me' }, phone: true, custom: 'custom' })
-        var vars = window.asayer.vars.args[1][0]
-        analytics.assert(vars && vars.email === 'hello@asayer.io' && !vars.title && vars.phone && vars.custom === 'custom')
+        analytics.stub(window.asayer, 'metadata')
+        analytics.identify('1', { 'email': 'hello@asayer.io', title: { hide: 'me' }, admin: true })
+        var traits = {}
+        window.asayer.metadata.args.forEach(function (entry) {
+          traits[entry[0]] = entry[1]
+        })
+        analytics.assert(traits.email === 'hello@asayer.io' && !traits.title && traits.admin === 'true')
       })
     })
 
@@ -82,11 +84,6 @@ describe('asayer', function () {
       it('should send event properties', function () {
         analytics.track('segment', { test: 'success' })
         analytics.called(window.asayer.event, 'segment', { test: 'success' })
-      })
-
-      it('should not send non-object properties', function () {
-        analytics.track('segment', [1, 2, 3])
-        analytics.didNotCall(window.asayer.event)
       })
     })
   })
